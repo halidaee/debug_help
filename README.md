@@ -12,7 +12,7 @@ Allocate 8 GB of RAM to the job per core assigned to a node/computer used for ru
 
 ## How to check for a data run
 
-If the job runs to completion, the log file should look like the following:
+If the job runs to completion, the log file should look like the following, where the internal loop ran successfully 25 times:
 
 
 
