@@ -22,6 +22,7 @@ library(broom)
 library(rdist)
 
 omp_num_threads <- as.integer(Sys.getenv("OMP_NUM_THREADS"))
+print(paste0("Thread count:", omp_num_threads))
 plan(multicore, workers = omp_num_threads)
 
 Adj_Matrix_Construction <- function(P_mat) {
@@ -141,15 +142,10 @@ MSE_simulation <- function(sim_number) {
         char_mat <- types[[model]]
         ARD_mat <- ARD_mats[[model]]
 
-        # print size of char_mat and ARD_mat. Also print model type and lambda. Do it all on one line.
-        print(paste0("char_mat size: ", dim(char_mat)[1], "x", dim(char_mat)[2], " ARD_mat size: ", dim(ARD_mat)[1], "x", dim(ARD_mat)[2], " model: ", model, " lambda: ", lambda_grid[1]))
 
         P_hat <- map(lambda_grid, function(lambda) accel_nuclear_gradient(as.matrix(char_mat), t(as.matrix(ARD_mat)), lambda = lambda))
-        print("ARD estimation went OK")
         MSE_vector <- map_dbl(P_hat, function(x) matrix_MSE(x, P_true[[model]]))
-        print("MSE calculation went OK")
         MSE_tibbles[[model]] <- tibble(lambda = lambda_grid, MSE = MSE_vector)
-        print("MSE tibble creation went OK")
     }
 
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --nodes=1
-#SBATCH --ntasks=2
+#SBATCH --cpus-per-task=2
 #SBATCH --mem-per-cpu=13G
 #SBATCH --time=47:00:00
 #SBATCH -p serial_requeue
